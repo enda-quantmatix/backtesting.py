@@ -1245,7 +1245,7 @@ class Backtest:
             self._results["TotalEquity"]  = pd.Series(equity)
             self._results["BrokerEquity"] = pd.Series(broker._equity)
             self._results["Cash"]         = broker._cash
-            indic_data = {attr: indicator.to_series() for attr, indicator in indicator_attrs}
+            indic_data = {attr: indicator.s for attr, indicator in indicator_attrs}
             self._results["StrategyData"] = pd.DataFrame(indic_data)
 
         return self._results
