@@ -1232,6 +1232,9 @@ class Backtest:
             data._set_length(len(self._data))
 
             equity = pd.Series(broker._equity).bfill().fillna(broker._cash).values
+            print(equity)
+            print(broker._equity)
+            print(broker._cash)
             self._results = compute_stats(
                 trades=broker.closed_trades,
                 equity=equity,
