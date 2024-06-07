@@ -1237,6 +1237,7 @@ class Backtest:
                 equity=equity,
                 ohlc_data=self._data,
                 risk_free_rate=0.0,
+                broker = broker,
                 strategy_instance=strategy,
             )
 
