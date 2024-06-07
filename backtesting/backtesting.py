@@ -1192,7 +1192,9 @@ class Backtest:
         indicator_attrs = {attr: indicator
                            for attr, indicator in strategy.__dict__.items()
                            if isinstance(indicator, _Indicator)}.items()
-
+        
+        print(indicator_attrs)
+        
         # Skip first few candles where indicators are still "warming up"
         # +1 to have at least two entries available
         start = 1 + max((np.isnan(indicator.astype(float)).argmin(axis=-1).max()
@@ -1232,9 +1234,6 @@ class Backtest:
             data._set_length(len(self._data))
 
             equity = pd.Series(broker._equity).bfill().fillna(broker._cash).values
-            print(equity)
-            print(broker._equity)
-            print(broker._cash)
             self._results = compute_stats(
                 trades=broker.closed_trades,
                 equity=equity,
@@ -1243,6 +1242,10 @@ class Backtest:
                 broker = broker,
                 strategy_instance=strategy,
             )
+            
+            self._results["TotalEquity"]  = pd.Series(equity)
+            self._results["BrokerEquity"] = pd.Series(broker._equity)
+            self._results["Cash"]         = broker.cash
 
         return self._results
 
