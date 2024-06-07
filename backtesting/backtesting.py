@@ -1193,7 +1193,6 @@ class Backtest:
                            for attr, indicator in strategy.__dict__.items()
                            if isinstance(indicator, _Indicator)}.items()
         
-        print(indicator_attrs, type(indicator_attrs))
         
         # Skip first few candles where indicators are still "warming up"
         # +1 to have at least two entries available
