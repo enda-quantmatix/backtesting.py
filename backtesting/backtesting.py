@@ -1243,7 +1243,7 @@ class Backtest:
             )
             
             self._results["TotalEquity"]  = pd.DataFrame(equity, columns = ["TotalEquity"])
-            self._results["BrokerEquity"] = pd.DataFrame(broker._equity, columns=["BorkerEquity"])
+            self._results["BrokerEquity"] = pd.DataFrame(broker._equity, columns=["BrokerEquity"])
             self._results["Cash"]         = broker._cash
             indic_data = {attr: indicator.s for attr, indicator in indicator_attrs}
             self._results["StrategyData"] = pd.DataFrame(indic_data)
