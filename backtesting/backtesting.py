@@ -1238,9 +1238,9 @@ class Backtest:
                 equity=equity,
                 ohlc_data=self._data,
                 risk_free_rate=0.0,
-                broker = broker,
                 strategy_instance=strategy,
             )
+            
             
             self._results["TotalEquity"]  = pd.DataFrame(equity, columns = ["TotalEquity"])
             self._results["BrokerEquity"] = pd.DataFrame(broker._equity, columns=["BrokerEquity"])
