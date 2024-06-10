@@ -802,6 +802,7 @@ class _Broker:
         # Log account equity for the equity curve
         equity = self.equity
         self._equity[i] = equity
+        print(equity)
 
         # If equity is negative, set all to 0 and stop the simulation
         if equity <= 0:
@@ -1245,6 +1246,7 @@ class Backtest:
             self._results["TotalEquity"]  = pd.DataFrame(equity, columns = ["TotalEquity"])
             self._results["BrokerEquity"] = pd.DataFrame(broker._equity, columns=["BrokerEquity"])
             self._results["Cash"]         = broker._cash
+            
             indic_data = {attr: indicator.s for attr, indicator in indicator_attrs}
             self._results["StrategyData"] = pd.DataFrame(indic_data)
 
