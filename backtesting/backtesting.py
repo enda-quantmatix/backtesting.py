@@ -1249,7 +1249,7 @@ class Backtest:
             
             self._results["TotalEquity"]  = pd.DataFrame(equity, columns = ["TotalEquity"])
             self._results["BrokerEquity"] = pd.DataFrame(broker._equity, columns=["BrokerEquity"])
-            self._results["Cash"]         = pd.DataFrame(broker._cash_arr, columns=["Cash"]).set_index(equity.index)
+            self._results["Cash"]         = pd.DataFrame(broker._cash_arr, columns=["Cash"])
             
             indic_data = {attr: indicator.s for attr, indicator in indicator_attrs}
             self._results["StrategyData"] = pd.DataFrame(indic_data)
