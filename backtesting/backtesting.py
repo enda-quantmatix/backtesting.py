@@ -1247,9 +1247,9 @@ class Backtest:
             )
             
             
-            self._results["TotalEquity"]  = pd.DataFrame(equity, columns = ["TotalEquity"])
-            self._results["BrokerEquity"] = pd.DataFrame(broker._equity, columns=["BrokerEquity"])
-            self._results["Cash"]         = pd.DataFrame(broker._cash_arr, columns=["Cash"])
+            self._results["TotalEquity"]  = pd.DataFrame(equity, columns = ["TotalEquity"]).set_index(data.index)
+            self._results["BrokerEquity"] = pd.DataFrame(broker._equity, columns=["BrokerEquity"]).set_index(data.index)
+            self._results["Cash"]         = pd.DataFrame(broker._cash_arr, columns=["Cash"]).set_index(data.index)
             
             indic_data = {attr: indicator.s for attr, indicator in indicator_attrs}
             self._results["StrategyData"] = pd.DataFrame(indic_data)
