@@ -804,7 +804,7 @@ class _Broker:
         equity = self.equity
         self._equity[i] = equity
         self._cash_arr[i] = self._cash
-        print(equity, self._cash)
+        # print(equity, self._cash)
 
         # If equity is negative, set all to 0 and stop the simulation
         if equity <= 0:
