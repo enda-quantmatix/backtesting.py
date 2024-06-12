@@ -699,7 +699,7 @@ class Trade:
 
 class _Broker:
     def __init__(self, *, data, cash, commission, margin,
-                 trade_on_close, hedging, exclusive_orders, index):
+                 trade_on_close, trade_on_close_next_bar, hedging, exclusive_orders, index):
         assert 0 < cash, f"cash should be >0, is {cash}"
         assert -.1 <= commission < .1, \
             ("commission should be between -10% "
@@ -710,6 +710,7 @@ class _Broker:
         self._commission = commission
         self._leverage = 1 / margin
         self._trade_on_close = trade_on_close
+        self._trade_on_close_next_bar = trade_on_close_next_bar
         self._hedging = hedging
         self._exclusive_orders = exclusive_orders
 
@@ -819,9 +820,11 @@ class _Broker:
 
     def _process_orders(self):
         data = self._data
-        open, high, low = data.Open[-1], data.High[-1], data.Low[-1]
+        open, high, low, close = data.Open[-1], data.High[-1], data.Low[-1], data.Close[-1]
         prev_close = data.Close[-2]
         reprocess_orders = False
+        if self._trade_on_close_next_bar and not self._trade_on_close:
+            open = close
 
         # Process orders
         for order in list(self.orders):  # type: Order
@@ -1034,6 +1037,7 @@ class Backtest:
                  commission: float = .0,
                  margin: float = 1.,
                  trade_on_close=False,
+                 trade_on_close_next_bar=False,
                  hedging=False,
                  exclusive_orders=False
                  ):
@@ -1133,7 +1137,7 @@ class Backtest:
         self._data: pd.DataFrame = data
         self._broker = partial(
             _Broker, cash=cash, commission=commission, margin=margin,
-            trade_on_close=trade_on_close, hedging=hedging,
+            trade_on_close=trade_on_close, trade_on_close_next_bar=trade_on_close_next_bar, hedging=hedging,
             exclusive_orders=exclusive_orders, index=data.index,
         )
         self._strategy = strategy
