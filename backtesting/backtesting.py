@@ -1250,7 +1250,6 @@ class Backtest:
                 strategy_instance=strategy,
             )
             
-            
             self._results["TotalEquity"]  = pd.DataFrame(equity, columns = ["TotalEquity"]).set_index(data.index)
             self._results["BrokerEquity"] = pd.DataFrame(broker._equity, columns=["BrokerEquity"]).set_index(data.index)
             self._results["Cash"]         = pd.DataFrame(broker._cash_arr, columns=["Cash"]).set_index(data.index)
