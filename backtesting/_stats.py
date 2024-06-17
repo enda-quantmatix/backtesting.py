@@ -62,7 +62,7 @@ def compute_stats(
             'EntryPrice': [t.entry_price for t in trades],
             'ExitPrice': [t.exit_price for t in trades],
             'PnL': [t.pl for t in trades],
-            'ReturnPct': [t.pl_pct for t in trades],
+            'ReturnPct': [t.pl_pct * 100 for t in trades],
             'EntryTime': [t.entry_time for t in trades],
             'ExitTime': [t.exit_time for t in trades],
             'Tag': [t.tag for t in trades],
