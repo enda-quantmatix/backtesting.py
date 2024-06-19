@@ -823,8 +823,9 @@ class _Broker:
         open, high, low, close = data.Open[-1], data.High[-1], data.Low[-1], data.Close[-1]
         prev_close = data.Close[-2]
         reprocess_orders = False
-        if self._trade_on_close_next_bar and not self._trade_on_close:
-            open = close
+        
+        # if self._trade_on_close_next_bar and not self._trade_on_close:
+        #     open = close
 
         # Process orders
         for order in list(self.orders):  # type: Order
