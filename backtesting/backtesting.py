@@ -997,12 +997,16 @@ class _Broker:
 
     def _close_trade(self, trade: Trade, price: float, time_index: int):
         self.trades.remove(trade)
+        tag = None
         if trade._sl_order:
             self.orders.remove(trade._sl_order)
+            tag = "stop loss"
         if trade._tp_order:
             self.orders.remove(trade._tp_order)
+            tag = "take profit"
+            
 
-        self.closed_trades.append(trade._replace(exit_price=price, exit_bar=time_index))
+        self.closed_trades.append(trade._replace(exit_price=price, exit_bar=time_index, tag=tag))
         self._cash += trade.pl
 
     def _open_trade(self, price: float, size: int,
