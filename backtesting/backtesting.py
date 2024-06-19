@@ -1001,6 +1001,7 @@ class _Broker:
         if trade._sl_order:
             self.orders.remove(trade._sl_order)
             tag = "stop loss"
+            print(f"Price={price}, Time={time_index} - {trade}")
         if trade._tp_order:
             self.orders.remove(trade._tp_order)
             tag = "take profit"
