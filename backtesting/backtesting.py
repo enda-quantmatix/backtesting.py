@@ -1006,7 +1006,7 @@ class _Broker:
             tag = "take profit"
             
 
-        self.closed_trades.append(trade._replace(exit_price=price, exit_bar=time_index, tag=tag))
+        self.closed_trades.append(trade._replace(exit_price=price, exit_bar=time_index))
         self._cash += trade.pl
 
     def _open_trade(self, price: float, size: int,
