@@ -824,11 +824,11 @@ class _Broker:
         prev_close = data.Close[-2]
         reprocess_orders = False
         
-        # if self._trade_on_close_next_bar and not self._trade_on_close:
-        #     open = close
+        if self._trade_on_close_next_bar and not self._trade_on_close:
+            open = close
 
         # Process orders
-        for order in list(self.orders):  # type: Order
+        for order in list(self.orders):  # type Order
 
             # Related SL/TP order was already removed
             if order not in self.orders:
