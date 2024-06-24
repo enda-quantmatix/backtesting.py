@@ -837,7 +837,7 @@ class _Broker:
             # Check if stop condition was hit
             stop_price = order.stop
             if stop_price:
-                is_stop_hit = ((high > stop_price) if order.is_long else (low < stop_price)) # this logic is for a stop condition
+                is_stop_hit = ((high >= stop_price) if order.is_long else (low <= stop_price)) # this logic is for a stop condition
                 # is_stop_hit = ((low < stop_price) if order.is_long else (high > stop_price)) # this logic is for a stop-loss condition                
                 if not is_stop_hit:
                     continue
