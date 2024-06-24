@@ -869,7 +869,8 @@ class _Broker:
                 price = (max(price, stop_price or -np.inf)
                          if order.is_long else
                          min(price, stop_price or np.inf))
-                price = stop_price
+                if stop_price:
+                    price = stop_price
 
             # Determine entry/exit bar index
             is_market_order = not order.limit and not stop_price
