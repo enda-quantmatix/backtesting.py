@@ -716,6 +716,7 @@ class _Broker:
 
         self._equity = np.tile(np.nan, len(index))
         self._cash_arr = np.tile(np.nan, len(index))
+        self._margin_available = np.tile(np.nan, len(index))
         self.orders: List[Order] = []
         self.trades: List[Trade] = []
         self.position = Position(self)
@@ -805,6 +806,7 @@ class _Broker:
         equity = self.equity
         self._equity[i] = equity
         self._cash_arr[i] = self._cash
+        self._margin_available[i] = self.margin_available()
         # print(equity, self._cash)
 
         # If equity is negative, set all to 0 and stop the simulation
@@ -815,7 +817,6 @@ class _Broker:
             self._cash = 0
             self._equity[i:] = 0
             self._cash_arr[i:] = 0
-            
             raise _OutOfMoneyError
 
     def _process_orders(self):
@@ -870,7 +871,7 @@ class _Broker:
                          if order.is_long else
                          min(price, stop_price or np.inf))
                 # if stop_price:
-                #     price = stop_price
+                #     price = stop_price    
 
             # Determine entry/exit bar index
             is_market_order = not order.limit and not stop_price
@@ -1262,7 +1263,7 @@ class Backtest:
             self._results["TotalEquity"]  = pd.DataFrame(equity, columns = ["TotalEquity"]).set_index(data.index)
             self._results["BrokerEquity"] = pd.DataFrame(broker._equity, columns=["BrokerEquity"]).set_index(data.index)
             self._results["Cash"]         = pd.DataFrame(broker._cash_arr, columns=["Cash"]).set_index(data.index)
-            
+            self._results["Margin_Available"] = pd.DataFrame(broker._margin_available, columns=["Cash"]).set_index(data.index)
             indic_data = {attr: indicator.s for attr, indicator in indicator_attrs}
             self._results["StrategyData"] = pd.DataFrame(indic_data)
 
