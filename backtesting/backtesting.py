@@ -845,7 +845,7 @@ class _Broker:
 
                 # > When the stop price is reached, a stop order becomes a market/limit order.
                 # https://www.sec.gov/fast-answers/answersstopordhtm.html
-                order._replace(stop_price=None)
+                order._replace(stop_price=None, tag=str(stop_price))
                 # self._close_trade(close_trade, price, time_index)
 
             # Determine purchase price.
