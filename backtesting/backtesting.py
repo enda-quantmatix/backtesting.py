@@ -838,14 +838,15 @@ class _Broker:
             # Check if stop condition was hit
             stop_price = order.stop
             if stop_price:
-                is_stop_hit = ((high >= stop_price) if order.is_long else (low <= stop_price)) # this logic is for a stop condition
-                # is_stop_hit = ((low < stop_price) if order.is_long else (high > stop_price)) # this logic is for a stop-loss condition                
+                # is_stop_hit = ((high >= stop_price) if order.is_long else (low <= stop_price)) # this logic is for a stop condition
+                is_stop_hit = ((low <= stop_price) if order.is_long else (high >= stop_price)) # this logic is for a stop-loss condition                
                 if not is_stop_hit:
                     continue
 
                 # > When the stop price is reached, a stop order becomes a market/limit order.
                 # https://www.sec.gov/fast-answers/answersstopordhtm.html
                 order._replace(stop_price=None)
+                # self._close_trade(close_trade, price, time_index)
 
             # Determine purchase price.
             # Check if limit order can be filled.
@@ -871,7 +872,7 @@ class _Broker:
                          if order.is_long else
                          min(price, stop_price or np.inf))
                 # if stop_price:
-                #     price = stop_price    
+                # price = stop_price    
 
             # Determine entry/exit bar index
             is_market_order = not order.limit and not stop_price
